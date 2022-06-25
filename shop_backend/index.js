@@ -4,6 +4,11 @@ const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 dotenv.config();
 
+//body parser for;
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 const PORT=process.env.PORT || 4000;
 
 const connection_url=process.env.MONGO_URL;
@@ -25,6 +30,10 @@ app.use("/api/users",userRoute);
 //calling authrouter
 const authRoute=require("./routes/auth");
 app.use("/api/auth",authRoute);
+
+//calling product;
+const productRoute=require("./routes/product");
+app.use("/api/products",productRoute);
 
 app.listen(PORT,()=>{
     console.log("backend server is listening to the port " + PORT)
