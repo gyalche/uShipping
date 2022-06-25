@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
     try {
         let products;
         if(query){
-            products=await product.find().sort({createdAt: -1}).limit(5);
+            products=await product.find().sort({createdAt: -1}).limit(1);
         }
         else if(queryCategory){
             products = await product.find({
@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
         }else{
             products= await product.find();
         }
-        res.status(products);
+        res.status(200).json(products);
     } catch (error) {
         res.status(500).json(error);
     }

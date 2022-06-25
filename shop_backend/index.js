@@ -20,7 +20,8 @@ mongoose.connect(connection_url,{
 }).catch((err) => {
     console.log(err)
 });
-
+const cors=require('cors');
+app.use(cors({origin:['http://localhost:4000']}))
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
@@ -35,6 +36,17 @@ app.use("/api/auth",authRoute);
 const productRoute=require("./routes/product");
 app.use("/api/products",productRoute);
 
+//calling cart;
+const cartRoute=require("./routes/cart");
+app.use("/api/carts",cartRoute);
+
+//calling order;
+const orderRoute=require("./routes/order");
+app.use('/api/orders', orderRoute);
+
+//calling payment route;
+const stripeRoute=require("./routes/stripe");
+app.use('/api/checkout', stripeRoute);
 app.listen(PORT,()=>{
     console.log("backend server is listening to the port " + PORT)
 })
